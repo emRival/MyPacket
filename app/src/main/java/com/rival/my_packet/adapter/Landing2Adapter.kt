@@ -1,10 +1,12 @@
 package com.rival.my_packet.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.rival.my_packet.DetailActivity
 import com.rival.my_packet.R
 import com.rival.my_packet.model.Result
 
@@ -31,6 +33,12 @@ class Landing2Adapter(var landingItem: Result?) : RecyclerView.Adapter<Landing2A
         holder.tvTanggalSelesai.text = landingItem?.paketselesai?.get(position)?.tanggal_input
         holder.tvStatusSelesai.text = landingItem?.paketselesai?.get(position)?.status
 
+        val context = holder.itemView.context
+        holder.itemView.setOnClickListener {
+            val i = Intent(context, DetailActivity::class.java)
+            i.putExtra("Data2", landingItem?.paketselesai?.get(position))
+            context.startActivity(i)
+        }
 
     }
 

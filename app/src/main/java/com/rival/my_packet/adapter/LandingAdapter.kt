@@ -1,5 +1,7 @@
 package com.rival.my_packet.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,14 +9,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.rival.my_packet.DetailActivity
 import com.rival.my_packet.R
 import com.rival.my_packet.model.PaketItem
 import com.rival.my_packet.model.PaketselesaiItem
 import com.rival.my_packet.model.Result
 
-class LandingAdapter(var landingItem: Result?) : RecyclerView.Adapter<LandingAdapter.MyViewHolder>(){
+class LandingAdapter(var landingItem: Result?) :
+    RecyclerView.Adapter<LandingAdapter.MyViewHolder>() {
 
-    class MyViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val tvNama = itemView.findViewById<TextView>(R.id.nama)
         val tvTanggal = itemView.findViewById<TextView>(R.id.tanggal)
@@ -26,7 +30,8 @@ class LandingAdapter(var landingItem: Result?) : RecyclerView.Adapter<LandingAda
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list_landing, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_list_landing, parent, false)
         return MyViewHolder(view)
     }
 
@@ -35,22 +40,23 @@ class LandingAdapter(var landingItem: Result?) : RecyclerView.Adapter<LandingAda
         holder.tvTanggal.text = landingItem?.paket?.get(position)?.tanggal_input
         holder.tvStatus.text = landingItem?.paket?.get(position)?.status
 
-        if (landingItem?.paket?.get(position)?.status == "satpam"){
+        if (landingItem?.paket?.get(position)?.status == "satpam") {
             holder.tvStatus.setTextColor(holder.itemView.context.resources.getColor(R.color.purple_700))
         } else {
             holder.tvStatus.setTextColor(holder.itemView.context.resources.getColor(R.color.teal_700))
         }
 
-//        holder.tvNamaSelesai.text = landingItem?.paketselesai?.get(position)?.nama_penerima
-//        holder.tvTanggalSelesai.text = landingItem?.paketselesai?.get(position)?.tanggal_input
-//        holder.tvStatusSelesai.text = landingItem?.paketselesai?.get(position)?.status
-
-
+        val context = holder.itemView.context
+        holder.itemView.setOnClickListener {
+            val i = Intent(context, DetailActivity::class.java)
+            i.putExtra("Data", landingItem?.paket?.get(position))
+            context.startActivity(i)
+        }
     }
 
     override fun getItemCount(): Int {
-        return landingItem?.paket?.size?: 0
-
+        return landingItem?.paket?.size ?: 0
     }
 
 }
+
