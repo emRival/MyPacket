@@ -1,38 +1,61 @@
 package com.rival.my_packet.ui.dashboard
 
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
+import com.rival.my_packet.R
+
+import com.rival.my_packet.adapter.ViewPagerAdapter
 import com.rival.my_packet.databinding.FragmentDashboardBinding
+
 
 class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
+    private lateinit var tabLayout: TabLayout
+    private lateinit var viewPager: ViewPager2
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private lateinit var viewPagerAdapter: ViewPagerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+
+
+        tabLayout = binding.tabLayout
+        viewPager = binding.viewPager
+        viewPager.adapter = ViewPagerAdapter(requireActivity())
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            when (position) {
+                0 -> tab.icon = resources.getDrawable(R.drawable.ic_home_black_24dp)
+                1 -> tab.text = "Satpam"
+                2 -> tab.text = "musyrif"
+                3 -> tab.text = "Selesai"
+            }
+        }.attach()
 
 
         return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
+
+
 }

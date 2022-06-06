@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".ui.home.HomeFragment">
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_landing"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/item_list_landing"/>
+        tools:listitem="@layout/item_list_landing" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_landing2"
