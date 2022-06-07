@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        (requireActivity() as AppCompatActivity).supportActionBar?.show()
+
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         rvLanding = binding.rvLanding
